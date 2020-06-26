@@ -1,5 +1,3 @@
-# ATTENTION: when done with setting up this file, you can go into .github/workflows/deploy.yml to use the 'deploy -v' command for this action in order to deploy your lambda
-
 service:
   name: amz-reports-hooks
 
@@ -16,26 +14,40 @@ provider:
   region: eu-central-1
   deploymentBucket:
     name: kaskadi-serverless-deployment-bucket
-  # update this section to use proper tags for your lambda and stack
   stackTags: 
-    app: your-app-name
+    app: kaskadi
   tags:
-    app: your-app-name
+    app: kaskadi
     service: ${self:service.name}
-    logical-unit: api-logical-unit
-    type: 's3, sns, etc.'
+    logical-unit: mws-subscriptions
+    type: sqs
 
 functions:
-  AmzReportsHooks:
-    handler: amz-reports-hooks.handler
-    name: ${self:service.name}
+  ProxyReportsNotif:
+    handler: proxy-reports-notif.handler
+    name: proxy-reports-notif
     package:
       include:
-        - 'amz-reports-hooks.js'
-        - 'node_modules/**'
-    # configure here the proper event(s) that should trigger your lambda
+        - 'proxy-reports-notif.js'
     events:
-      - http:
-          method: get
-          path: hello
-          cors: true
+      - sqs:
+          arn: !GetAtt MwsReportSubDE.Arn
+          batchSize: 1
+      - sqs:
+          arn: !GetAtt MwsReportSubES.Arn
+          batchSize: 1
+      - sqs:
+          arn: !GetAtt MwsReportSubFR.Arn
+          batchSize: 1
+      - sqs:
+          arn: !GetAtt MwsReportSubGB.Arn
+          batchSize: 1
+      - sqs:
+          arn: !GetAtt MwsReportSubIT.Arn
+          batchSize: 1
+    destinations:
+      onSuccess: !GetAtt MwsReportTopic.Arn
+
+resources:
+  Resources:
+    ${file(./resources/eu-mws-notif-queues+topic.yml)}

@@ -7,8 +7,7 @@ on:
       - 'release/**'
     paths:
       - 'serverless.yml'
-      - 'template-kaskadi-lambda.js'
-      - 'layer/**'
+      - 'proxy-reports-notif.js'
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -27,7 +26,7 @@ jobs:
     - name: serverless-deploy
       uses: kaskadi/action-slscli@master
       with:
-        command: '--version'
+        command: 'deploy -v'
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_KEY_SECRET }}
