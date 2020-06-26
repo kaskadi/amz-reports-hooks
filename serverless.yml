@@ -28,13 +28,29 @@ provider:
         - sns:Subscribe
       Resource: !Ref MwsReportTopic
 
+layers:
+  ProxyReportsNotif:
+    path: layer
+    name: proxy-reports-notif-layer
+    description: Layer for proxy-reports-notif
+    compatibleRuntimes:
+      - nodejs10.x
+      - nodejs12.x
+    licenseInfo: MIT
+    package:
+      include:
+        - '**/**'
+
 functions:
   ProxyReportsNotif:
     handler: proxy-reports-notif.handler
     name: proxy-reports-notif
+    layers:
+      - { Ref: ProxyReportsNotifLambdaLayer}
     package:
       include:
         - 'proxy-reports-notif.js'
+        - 'helpers/**'
     events:
       - sqs:
           arn: !GetAtt MwsReportSubDE.Arn
