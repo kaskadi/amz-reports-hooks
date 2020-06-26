@@ -1,7 +1,7 @@
 # ATTENTION: when done with setting up this file, you can go into .github/workflows/deploy.yml to use the 'deploy -v' command for this action in order to deploy your lambda
 
 service:
-  name: template-kaskadi-lambda
+  name: amz-reports-hooks
 
 package:
   individually: true
@@ -26,12 +26,12 @@ provider:
     type: 's3, sns, etc.'
 
 functions:
-  TemplateKaskadi:
-    handler: template-kaskadi-lambda.handler
+  AmzReportsHooks:
+    handler: amz-reports-hooks.handler
     name: ${self:service.name}
     package:
       include:
-        - 'template-kaskadi-lambda.js'
+        - 'amz-reports-hooks.js'
         - 'node_modules/**'
     # configure here the proper event(s) that should trigger your lambda
     events:
