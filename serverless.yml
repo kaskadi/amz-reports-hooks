@@ -21,6 +21,12 @@ provider:
     service: ${self:service.name}
     logical-unit: mws-subscriptions
     type: sqs
+  iamRoleStatements:
+    - Effect: Allow
+      Action: 
+        - sns:Publish
+        - sns:Subscribe
+      Resource: !Ref MwsReportTopic
 
 functions:
   ProxyReportsNotif:
@@ -45,8 +51,6 @@ functions:
       - sqs:
           arn: !GetAtt MwsReportSubIT.Arn
           batchSize: 1
-    destinations:
-      onSuccess: !Ref MwsReportTopic
 
 resources:
   Resources:
