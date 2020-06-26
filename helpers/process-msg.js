@@ -3,7 +3,7 @@ module.exports = (msg) => {
   msg.body = parsedBody
   return {
     msg,
-    reportType: parsedBody.Notification.NotificationPayload.ReportProcessingFinishedNotification.ReportType
+    reportType: parsedBody.Notification.NotificationPayload.TestNotification ? 'testNotification' : parsedBody.Notification.NotificationPayload.ReportProcessingFinishedNotification.ReportType
   }
 }
 
