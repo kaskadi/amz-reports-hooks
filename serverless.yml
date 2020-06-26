@@ -29,7 +29,7 @@ provider:
       Resource: !Ref MwsReportTopic
 
 layers:
-  ProxyReportsNotif:
+  ProxyReportsNotifLambda:
     path: layer
     name: proxy-reports-notif-layer
     description: Layer for proxy-reports-notif
@@ -46,7 +46,7 @@ functions:
     handler: proxy-reports-notif.handler
     name: proxy-reports-notif
     layers:
-      - { Ref: ProxyReportsNotifLambdaLayer}
+      - { Ref: ProxyReportsNotifLambdaLambdaLayer}
     package:
       include:
         - 'proxy-reports-notif.js'
