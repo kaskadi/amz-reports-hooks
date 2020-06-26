@@ -1,8 +1,9 @@
 module.exports = (msg) => {
-  msg.body = parseBody(msg.body)
+  const parsedBody = parseBody(msg.body)
+  msg.body = parsedBody
   return {
     msg,
-    reportType: msg.body.Notification.NotificationPayload.ReportProcessingFinishedNotification.ReportType
+    reportType: parsedBody.Notification.NotificationPayload.ReportProcessingFinishedNotification.ReportType
   }
 }
 
