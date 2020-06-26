@@ -46,7 +46,7 @@ functions:
           arn: !GetAtt MwsReportSubIT.Arn
           batchSize: 1
     destinations:
-      onSuccess: !GetAtt MwsReportTopic.Arn
+      onSuccess: !Ref MwsReportTopic
 
 resources:
   Resources:
