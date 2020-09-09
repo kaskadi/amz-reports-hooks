@@ -19,8 +19,8 @@
 
 [![](https://img.shields.io/lgtm/grade/javascript/github/kaskadi/amz-reports-hooks?label=code%20quality&logo=LGTM)](https://lgtm.com/projects/g/kaskadi/amz-reports-hooks/?mode=list&logo=LGTM)
 
-:point_right: **Badges here** :point_left:
-
 ****
 
-:point_down: **Your documentation here** :point_down:
+# Disclaimer
+
+This repo is now archived. Please do not redeploy this stack as this does not fit the current architecture anymore.
